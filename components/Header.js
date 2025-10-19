@@ -1,14 +1,16 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 export default function Header({ totalBids }) {
   return (
     <View style={styles.header}>
-      <Text style={styles.logo}>💰 Friend Auction</Text>
-      <View style={styles.bidCounter}>
-        <Text style={styles.bidCount}>{totalBids}</Text>
-        <Text style={styles.bidLabel}>Bids</Text>
-      </View>
+      <TouchableOpacity style={styles.iconButton}>
+        <Text style={styles.icon}>👤</Text>
+      </TouchableOpacity>
+      <Text style={styles.title}>Auctions</Text>
+      <TouchableOpacity style={styles.iconButton}>
+        <Text style={styles.icon}>☰</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -20,27 +22,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingTop: 50,
-    paddingBottom: 20,
+    paddingBottom: 15,
+    backgroundColor: '#F5F5F0',
   },
-  logo: {
+  title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#2C2C2C',
   },
-  bidCounter: {
-    backgroundColor: '#2a2a2a',
-    paddingHorizontal: 15,
-    paddingVertical: 8,
+  iconButton: {
+    width: 40,
+    height: 40,
     borderRadius: 20,
+    backgroundColor: '#E8E8E0',
+    justifyContent: 'center',
     alignItems: 'center',
   },
-  bidCount: {
+  icon: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: '#4CAF50',
-  },
-  bidLabel: {
-    fontSize: 12,
-    color: '#888',
   },
 });

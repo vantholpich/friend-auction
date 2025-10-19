@@ -9,7 +9,7 @@ export default function ActionButtons({ onPass, onBid }) {
       </TouchableOpacity>
       
       <TouchableOpacity style={[styles.button, styles.bidButton]} onPress={onBid}>
-        <Text style={styles.buttonText}>💰</Text>
+        <Text style={styles.heartIcon}>♥</Text>
       </TouchableOpacity>
     </View>
   );
@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 40,
-    gap: 40,
+    paddingBottom: 100,
+    gap: 30,
   },
   button: {
     width: 70,
@@ -30,19 +30,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
     elevation: 5,
   },
   passButton: {
-    backgroundColor: '#f44336',
+    backgroundColor: '#FFFFFF',
   },
   bidButton: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#E91E63',
+    width: 80,
+    height: 80,
+    borderRadius: 40,
   },
   buttonText: {
     fontSize: 32,
-    color: '#fff',
+    color: '#E91E63',
+    fontWeight: 'bold',
+  },
+  heartIcon: {
+    fontSize: 36,
+    color: '#FFFFFF',
   },
 });

@@ -86,7 +86,7 @@ export default function App() {
   if (loading) {
     return (
       <View style={[styles.container, styles.centered]}>
-        <ActivityIndicator size="large" color="#4CAF50" />
+        <ActivityIndicator size="large" color="#E91E63" />
         <Text style={styles.loadingText}>Loading friends...</Text>
       </View>
     );
@@ -96,7 +96,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="dark-content" />
       <Header totalBids={bids.length} />
 
       <View style={styles.cardContainer}>
@@ -125,7 +125,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a1a1a',
+    backgroundColor: '#F5F5F0',
   },
   cardContainer: {
     flex: 1,
@@ -135,10 +135,15 @@ const styles = StyleSheet.create({
   endCard: {
     width: '85%',
     height: '70%',
-    backgroundColor: '#2a2a2a',
+    backgroundColor: '#FFFFFF',
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 5,
   },
   endContent: {
     alignItems: 'center',
@@ -150,12 +155,12 @@ const styles = StyleSheet.create({
   endText: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#2C2C2C',
     marginBottom: 10,
   },
   endSubtext: {
     fontSize: 18,
-    color: '#888',
+    color: '#8E8E8E',
   },
   centered: {
     justifyContent: 'center',
@@ -164,6 +169,6 @@ const styles = StyleSheet.create({
   loadingText: {
     marginTop: 20,
     fontSize: 18,
-    color: '#888',
+    color: '#8E8E8E',
   },
 });

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { StyleSheet, View, Text, Image, Animated, PanResponder, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, Image, Animated, PanResponder, Dimensions, Platform } from 'react-native';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SWIPE_THRESHOLD = SCREEN_WIDTH * 0.25;
@@ -70,21 +70,22 @@ export default function SwipeCard({ friend, onSwipe }) {
       <Image source={{ uri: friend.image }} style={styles.image} />
       
       <Animated.View style={[styles.badge, styles.bidBadge, { opacity: likeOpacity }]}>
-        <Text style={styles.badgeText}>BID!</Text>
+        <Text style={styles.badgeText}>LIKE</Text>
       </Animated.View>
       
       <Animated.View style={[styles.badge, styles.passBadge, { opacity: nopeOpacity }]}>
-        <Text style={styles.badgeText}>PASS</Text>
+        <Text style={styles.badgeText}>NOPE</Text>
       </Animated.View>
 
+      <View style={styles.gradientOverlay} />
       <View style={styles.info}>
         <Text style={styles.name}>
           {friend.name}, {friend.age}
         </Text>
         <Text style={styles.bio}>{friend.bio}</Text>
         <View style={styles.bidContainer}>
-          <Text style={styles.bidLabel}>Starting Bid:</Text>
-          <Text style={styles.bidAmount}>${friend.startingBid}</Text>
+          <Text style={styles.bidIcon}>💰</Text>
+          <Text style={styles.bidAmount}>{friend.startingBid} Bids</Text>
         </View>
       </View>
     </Animated.View>
@@ -93,16 +94,21 @@ export default function SwipeCard({ friend, onSwipe }) {
 
 const styles = StyleSheet.create({
   card: {
-    width: '85%',
-    height: '70%',
-    backgroundColor: '#2a2a2a',
-    borderRadius: 20,
+    width: '88%',
+    height: '68%',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 24,
     overflow: 'hidden',
     position: 'absolute',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.15,
+    shadowRadius: 16,
+    elevation: 8,
   },
   image: {
     width: '100%',
-    height: '70%',
+    height: '100%',
     resizeMode: 'cover',
   },
   badge: {
@@ -120,7 +126,7 @@ const styles = StyleSheet.create({
   },
   passBadge: {
     left: 30,
-    borderColor: '#f44336',
+    borderColor: '#E91E63',
     transform: [{ rotate: '-20deg' }],
   },
   badgeText: {
@@ -128,32 +134,45 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#fff',
   },
+  gradientOverlay: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: '50%',
+    backgroundColor: 'rgba(0,0,0,0.6)',
+  },
   info: {
-    padding: 20,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    padding: 24,
   },
   name: {
-    fontSize: 28,
+    fontSize: 32,
     fontWeight: 'bold',
-    color: '#fff',
-    marginBottom: 5,
+    color: '#FFFFFF',
+    marginBottom: 6,
   },
   bio: {
     fontSize: 16,
-    color: '#ccc',
-    marginBottom: 15,
+    color: '#FFFFFF',
+    marginBottom: 12,
+    opacity: 0.9,
   },
   bidContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 4,
   },
-  bidLabel: {
-    fontSize: 16,
-    color: '#888',
-    marginRight: 10,
+  bidIcon: {
+    fontSize: 18,
+    marginRight: 8,
   },
   bidAmount: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#4CAF50',
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#FFFFFF',
   },
 });
