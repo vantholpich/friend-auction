@@ -26,21 +26,27 @@ export default function Layout() {
         name="index"
         options={{
           title: 'Auctions',
-          tabBarIcon: ({ color }) => <Text style={{ fontSize: 24 }}>🔍</Text>,
+          tabBarIcon: () => <Text style={{ fontSize: 24 }}>🔍</Text>,
         }}
       />
       <Tabs.Screen
         name="bids"
         options={{
           title: 'My Bids',
-          tabBarIcon: ({ color }) => <Text style={{ fontSize: 24 }}>📋</Text>,
+          tabBarIcon: () => <Text style={{ fontSize: 24 }}>📋</Text>,
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color }) => <Text style={{ fontSize: 24 }}>👤</Text>,
+          tabBarIcon: () => <Text style={{ fontSize: 24 }}>👤</Text>,
+        }}
+      />
+      <Tabs.Screen
+        name="person"
+        options={{
+          href: null,
         }}
       />
     </Tabs>
