@@ -1,17 +1,16 @@
-import React from 'react';
 import { StyleSheet, View, Text, ScrollView, StatusBar } from 'react-native';
 
-export default function ProfileScreen() {
+export default function BidsScreen() {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
       <View style={styles.header}>
-        <Text style={styles.title}>Profile</Text>
+        <Text style={styles.title}>My Bids</Text>
       </View>
       <ScrollView style={styles.content}>
         <View style={styles.placeholder}>
-          <Text style={styles.placeholderIcon}>👤</Text>
-          <Text style={styles.placeholderText}>Profile coming soon</Text>
+          <Text style={styles.placeholderIcon}>📋</Text>
+          <Text style={styles.placeholderText}>Your bids will appear here</Text>
         </View>
       </ScrollView>
     </View>

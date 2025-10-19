@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, StatusBar, ActivityIndicator, Text, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
-import SwipeCard from '../components/SwipeCard';
-import Header from '../components/Header';
-import ActionButtons from '../components/ActionButtons';
-import { supabase } from '../lib/supabase';
+import SwipeCard from '../../components/SwipeCard';
+import Header from '../../components/Header';
+import ActionButtons from '../../components/ActionButtons';
+import { supabase } from '../../lib/supabase';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -86,10 +86,7 @@ export default function HomeScreen() {
   const handleCardPress = () => {
     if (currentIndex < friends.length) {
       const currentFriend = friends[currentIndex];
-      router.push({
-        pathname: '/person/[id]',
-        params: { id: currentFriend.id }
-      });
+      router.push(`/person/${currentFriend.id}`);
     }
   };
 
