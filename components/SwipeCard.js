@@ -27,10 +27,24 @@ export default function SwipeCard({ friend, onSwipe }) {
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
+      onStartShouldSetPanResponderCapture: () => true,
+      onMoveShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponderCapture: () => true,
+      onPanResponderGrant: () => {
+        // Prevent default touch behavior on web
+        if (Platform.OS === 'web') {
+          document.body.style.overflow = 'hidden';
+        }
+      },
       onPanResponderMove: (_, gesture) => {
         position.setValue({ x: gesture.dx, y: gesture.dy });
       },
       onPanResponderRelease: (_, gesture) => {
+        // Re-enable scrolling on web
+        if (Platform.OS === 'web') {
+          document.body.style.overflow = 'auto';
+        }
+        
         if (gesture.dx > SWIPE_THRESHOLD) {
           forceSwipe('right');
         } else if (gesture.dx < -SWIPE_THRESHOLD) {
@@ -38,6 +52,13 @@ export default function SwipeCard({ friend, onSwipe }) {
         } else {
           resetPosition();
         }
+      },
+      onPanResponderTerminate: () => {
+        // Re-enable scrolling on web if gesture is interrupted
+        if (Platform.OS === 'web') {
+          document.body.style.overflow = 'auto';
+        }
+        resetPosition();
       },
     })
   ).current;

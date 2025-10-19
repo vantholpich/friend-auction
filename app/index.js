@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, StatusBar, ActivityIndicator, Text } from 'react-native';
-import SwipeCard from './components/SwipeCard';
-import Header from './components/Header';
-import ActionButtons from './components/ActionButtons';
-import { supabase } from './lib/supabase';
+import { StyleSheet, View, StatusBar, ActivityIndicator, Text, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
+import SwipeCard from '../components/SwipeCard';
+import Header from '../components/Header';
+import ActionButtons from '../components/ActionButtons';
+import { supabase } from '../lib/supabase';
 
-export default function App() {
+export default function HomeScreen() {
+  const router = useRouter();
   const [friends, setFriends] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [bids, setBids] = useState([]);
@@ -25,7 +27,6 @@ export default function App() {
 
       if (error) throw error;
 
-      // Transform data to match component expectations
       const transformedData = data.map(friend => ({
         id: friend.id,
         name: friend.name,
@@ -62,14 +63,13 @@ export default function App() {
     const currentFriend = friends[currentIndex];
 
     if (direction === 'right') {
-      // Save bid to Supabase
       try {
         const { error } = await supabase
           .from('bids')
           .insert({
             friend_id: currentFriend.id,
             bid_amount: currentFriend.startingBid,
-            user_id: 'demo-user', // Replace with actual user ID when you add auth
+            user_id: 'demo-user',
           });
 
         if (error) throw error;
@@ -81,6 +81,16 @@ export default function App() {
     }
 
     setCurrentIndex(currentIndex + 1);
+  };
+
+  const handleCardPress = () => {
+    if (currentIndex < friends.length) {
+      const currentFriend = friends[currentIndex];
+      router.push({
+        pathname: '/person/[id]',
+        params: { id: currentFriend.id }
+      });
+    }
   };
 
   if (loading) {
@@ -101,7 +111,13 @@ export default function App() {
 
       <View style={styles.cardContainer}>
         {currentFriend ? (
-          <SwipeCard friend={currentFriend} onSwipe={handleSwipe} />
+          <TouchableOpacity 
+            activeOpacity={0.95} 
+            onPress={handleCardPress}
+            style={styles.cardWrapper}
+          >
+            <SwipeCard friend={currentFriend} onSwipe={handleSwipe} />
+          </TouchableOpacity>
         ) : (
           <View style={styles.endCard}>
             <View style={styles.endContent}>
@@ -129,6 +145,12 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cardWrapper: {
+    width: '100%',
+    height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
